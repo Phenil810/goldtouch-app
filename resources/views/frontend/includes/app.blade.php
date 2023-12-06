@@ -95,7 +95,7 @@
                                         <i class="search-icon fa fa-search"></i>
                                     </div>
                                     <div class="input-group search-area d-none floating-search" id="search">
-                                        <input type="text" class="form-control" placeholder="Search here" name="search" value="{{ reuest('search') }}"/>
+                                        <input type="text" class="form-control" placeholder="Search here" name="search" value="{{ request('search') }}"/>
                                         <span class="input-group-text">
                                             <a href="javascript:void(0)">
 
