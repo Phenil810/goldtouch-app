@@ -19,17 +19,34 @@ class AdminDashboardController extends Controller
 {
     protected function index()
     {
-        $orders = Order::latest()->paginate(10);
-        $countOrder = Order::all();
-        $pendingOrder = Order::where('status', ['1', '2', '3', '4', '5', '6', '7', '8']);
-        $onhold = Order::where('fabrics_status', '3');
-        $completedOrder = Order::where('status', '9');
-        $tasks = Task::latest()->paginate(10);
-        $tasksInProcess = Task::all()->where('status', '1')->count();
-        $notification = Notification::latest()->get();
-        $notificationCount = Notification::where('status', '1')->count();
 
-        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold', 'orders', 'notification', 'notificationCount'));
+        $keyword = $request->get('search');
+        $perPage = 10;
+
+        if(!empty($keyword)){
+
+            $orders = Order::where('orders' , 'LIKE', "%$keyword%");
+            $countOrder = Order::where('countOrder' , 'LIKE', "%$keyword%");
+            $pendingOrder = Order::where('pendingOrder' , 'LIKE', "%$keyword%");
+            $onhold = Order::where('onhold' , 'LIKE', "%$keyword%");
+            $completedOrder = Order::where('completedOrder' , 'LIKE', "%$keyword%");
+            $tasks = Task::where('tasks' , 'LIKE', "%$keyword%");
+            $tasksInProcess = Task::where('tasksInProcess' , 'LIKE', "%$keyword%");
+            $notification = Notification::where('notification' , 'LIKE', "%$keyword%");
+            $notificationCount = Notification::where('notificationCount' , 'LIKE', "%$keyword%");
+        } else {
+            $orders = Order::latest()->paginate(10);
+            $countOrder = Order::all();
+            $pendingOrder = Order::where('status', ['1', '2', '3', '4', '5', '6', '7', '8']);
+            $onhold = Order::where('fabrics_status', '3');
+            $completedOrder = Order::where('status', '9');
+            $tasks = Task::latest()->paginate(10);
+            $tasksInProcess = Task::all()->where('status', '1')->count();
+            $notification = Notification::latest()->get();
+            $notificationCount = Notification::where('status', '1')->count();
+        }
+
+        return view('frontend.index', compact('countOrder', 'pendingOrder', 'completedOrder', 'tasks', 'tasksInProcess', 'onhold', 'orders', 'notification', 'notificationCount'))->with('i',(request()->input('page',1) -1) *10);
     }
 
     protected function order()

@@ -90,18 +90,20 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="nav-item position-relative">
-                                <div class="search-btn">
-                                    <i class="search-icon fa fa-search"></i>
-                                </div>
-                                <div class="input-group search-area d-none floating-search" id="search">
-                                    <input type="text" class="form-control" placeholder="Search here" />
-                                    <span class="input-group-text">
-                                        <a href="javascript:void(0)">
+                                <form  method="GET" action="{{ route('frontend.index') }}" accept-charset="UTF-8" role="search">
+                                    <div class="search-btn">
+                                        <i class="search-icon fa fa-search"></i>
+                                    </div>
+                                    <div class="input-group search-area d-none floating-search" id="search">
+                                        <input type="text" class="form-control" placeholder="Search here" name="search" value="{{ reuest('search') }}"/>
+                                        <span class="input-group-text">
+                                            <a href="javascript:void(0)">
 
-                                            <i class="flaticon-381-search-2"></i>
-                                        </a>
-                                    </span>
-                                </div>
+                                                <i class="flaticon-381-search-2"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </form>
                             </div>
 
                             <div class="ms-5 nav-item position-relative">
